@@ -1,4 +1,4 @@
-package frogger.screen.frame.gameHelpers
+package frogger.screen.frame.elements.gameHelpers
 
 import frogger.screen.frame.elements.frameHelpers.ImageViewConstant
 import javafx.scene.image.Image

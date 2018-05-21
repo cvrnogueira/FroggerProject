@@ -1,11 +1,13 @@
 package frogger.screen.frame.elements.frog
 
-import frogger.screen.frame.gameHelpers.PositionCalculator
+import frogger.screen.frame.elements.gameHelpers.PositionCalculator
 import javafx.scene.Node
 import javafx.scene.input.KeyCode
 
 class Frog(var frog: Node) {
-
+  def this() {
+    this(null)
+  }
   def getFrog(): Node ={
     if(frog == null) throw new Exception("Erro no jogo, tente jogar novamente!")
     return frog

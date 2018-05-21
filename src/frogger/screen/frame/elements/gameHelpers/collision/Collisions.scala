@@ -1,4 +1,4 @@
-package frogger.screen.frame.gameHelpers.collision
+package frogger.screen.frame.elements.gameHelpers.collision
 
 import frogger.screen.frame.elements.frog.Frog
 import frogger.screen.frame.elements.player.PlayerStatus

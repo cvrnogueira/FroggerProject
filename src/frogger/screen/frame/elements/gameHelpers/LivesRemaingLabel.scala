@@ -1,4 +1,4 @@
-package frogger.screen.frame.gameHelpers
+package frogger.screen.frame.elements.gameHelpers
 
 import javafx.geometry.Insets
 import javafx.scene.control.Label

@@ -1,4 +1,4 @@
-package frogger.screen.frame.gameHelpers
+package frogger.screen.frame.elements.gameHelpers
 
 import java.io.File
 import frogger.screen.frame.elements.player.PlayerStatus

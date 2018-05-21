@@ -1,4 +1,4 @@
-package frogger.screen.frame.gameHelpers
+package frogger.screen.frame.elements.gameHelpers
 
 import frogger.screen.frame.elements.car.Car
 import frogger.screen.frame.elements.generics.GenericList
