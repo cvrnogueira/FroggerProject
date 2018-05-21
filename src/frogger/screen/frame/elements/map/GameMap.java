@@ -1,6 +1,6 @@
 package frogger.screen.frame.elements.map;
 
-import frogger.screen.frame.elements.TexturedElement;
+import frogger.screen.frame.elements.frameHelpers.TexturedElement;
 import frogger.screen.frame.elements.car.Car;
 import frogger.screen.frame.elements.sidewalk.Sidewalk;
 import frogger.screen.frame.elements.street.Street;
@@ -11,14 +11,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Map extends VBox {
+public class GameMap extends VBox {
 
     private List<TexturedElement> places;
 
     private Car car;
 
-    public Map() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Map.fxml"));
+    public GameMap() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GameMap.fxml"));
 
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);

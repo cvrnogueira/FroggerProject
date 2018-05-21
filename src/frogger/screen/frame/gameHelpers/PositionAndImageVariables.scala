@@ -1,6 +1,7 @@
-package frogger.screen.frame.helpers
+package frogger.screen.frame.gameHelpers
 
 import frogger.screen.frame.elements.car.Car
+import frogger.screen.frame.elements.generics.GenericList
 
 object PositionAndImageVariables {
 

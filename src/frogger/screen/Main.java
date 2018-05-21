@@ -1,18 +1,17 @@
 package frogger.screen;
 
 import frogger.screen.frame.GameFrame;
-import frogger.screen.frame.elements.car.Car;
 import frogger.screen.frame.elements.car.DefineCarSpawns;
 import frogger.screen.frame.elements.car.RedCar;
 import frogger.screen.frame.elements.car.YellowCar;
+import frogger.screen.frame.elements.frameHelpers.ImageViewConstant;
 import frogger.screen.frame.elements.frog.Frog;
 import frogger.screen.frame.elements.player.Player;
 import frogger.screen.frame.elements.player.PlayerStatus;
-import frogger.screen.frame.helpers.ImageViewConstant;
-import frogger.screen.frame.helpers.LivesRemaingLabel;
-import frogger.screen.frame.helpers.MusicManager;
-import frogger.screen.frame.helpers.PositionAndImageVariables;
-import frogger.screen.frame.helpers.collision.Collisions;
+import frogger.screen.frame.gameHelpers.LivesRemaingLabel;
+import frogger.screen.frame.gameHelpers.MusicManager;
+import frogger.screen.frame.gameHelpers.PositionAndImageVariables;
+import frogger.screen.frame.gameHelpers.collision.Collisions;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -28,16 +27,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 
 public class Main extends Application {
 

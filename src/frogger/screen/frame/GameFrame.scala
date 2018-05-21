@@ -3,7 +3,7 @@ package frogger.screen.frame
 import java.net.URL
 import java.util.ResourceBundle
 
-import frogger.screen.frame.elements.map.Map
+import frogger.screen.frame.elements.map.GameMap
 import javafx.fxml.{FXMLLoader, Initializable}
 import javafx.scene.layout.AnchorPane
 
@@ -19,7 +19,7 @@ class GameFrame extends AnchorPane with Initializable {
   fxmlLoader.load()
 
   private def generateMap(): Unit = {
-    getChildren.add(new Map())
+    getChildren.add(new GameMap())
   }
 
   override def initialize(location: URL, resources: ResourceBundle): Unit = {

@@ -1,5 +1,6 @@
-package frogger.screen.frame.helpers
+package frogger.screen.frame.gameHelpers
 
+import frogger.screen.frame.elements.frameHelpers.ImageViewConstant
 import javafx.scene.image.Image
 import javafx.scene.input.KeyCode
 

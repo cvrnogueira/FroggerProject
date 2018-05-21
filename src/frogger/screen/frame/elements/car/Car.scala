@@ -1,7 +1,7 @@
 package frogger.screen.frame.elements.car
 
-import frogger.screen.frame.elements.TexturedElement
-import frogger.screen.frame.helpers.PositionAndImageVariables
+import frogger.screen.frame.elements.frameHelpers.TexturedElement
+import frogger.screen.frame.gameHelpers.PositionAndImageVariables
 
 import scala.collection.mutable
 
@@ -11,47 +11,25 @@ abstract class Car extends TexturedElement(49, 24) {
   def setTextureOfCar() {}
 
   def setTranslateY(): Double = {
-    val start = (PositionAndImageVariables.H - 200).toInt
+    val start = subtractDoubleValues(PositionAndImageVariables.H, 200)
     val end: Int = PositionAndImageVariables.UP_MARGIN
-    val r = new scala.util.Random
-    val interval = start - end
-    val r1 = start - r.nextInt(interval)
-    //val finalPosition = getPosition(r1, PositionAndImageVariables.carPositions.elements)
+    val interval = subtractIntegerValues(start,end)
+    val r1 = subtractIntegerValues(start, (new scala.util.Random).nextInt(interval))
     val finalPosition = getPos(PositionAndImageVariables.carPositions.elements)
     PositionAndImageVariables.carPositions.add(this) //+= finalPosition
     setTranslateY(finalPosition)
-    return finalPosition
-
+    finalPosition
   }
+
+  val subtractIntegerValues = (x: Int, y: Int) => x - y
+  val subtractDoubleValues = (x: Double, y: Double) => (x - y).toInt
+
+  val subtract64 = (x:Double) => x-64;
 
   def getPos(list: mutable.MutableList[Car]): Double = {
-    if (list.isEmpty) {
-      return 402
-    }
+    if (list.isEmpty) { 402 }
     else {
-      val lastElement = list(list.length - 1)
-      return lastElement.localToScene(lastElement.getBoundsInLocal).getMinY - 64
+      subtract64(list.last.localToScene(list.last.getBoundsInLocal).getMinY)
     }
-  }
-
-  //parei de usar, só nao tirei ainda pra vai que
-  def getPosition(position: Double, list: mutable.MutableList[Car]): Double = {
-    var count = 0
-    var finalPosition = position
-    while (count < list.length) {
-        if ((finalPosition > list(count).getTranslateY + 60  || finalPosition < list(count).getTranslateY - 58)) {
-        count += 1
-      }
-      else {
-        val start = (PositionAndImageVariables.H - 200).toInt
-        val end: Int = PositionAndImageVariables.UP_MARGIN
-        val r = new scala.util.Random
-        val interval = start - end
-        val newPos = start - r.nextInt(interval)
-        finalPosition = newPos
-        count = 0
-      }
-    }
-    return finalPosition
   }
 }

@@ -1,4 +1,4 @@
-package frogger.screen.frame.helpers
+package frogger.screen.frame.gameHelpers
 
 import javafx.scene.Node
 import javafx.scene.input.KeyCode

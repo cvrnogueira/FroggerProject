@@ -1,4 +1,4 @@
-package frogger.screen.frame.helpers
+package frogger.screen.frame.elements.generics
 
 import scala.collection.mutable
 

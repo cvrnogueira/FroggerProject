@@ -1,6 +1,6 @@
 package frogger.screen.frame.elements.frog
 
-import frogger.screen.frame.helpers.PositionCalculator
+import frogger.screen.frame.gameHelpers.PositionCalculator
 import javafx.scene.Node
 import javafx.scene.input.KeyCode
 

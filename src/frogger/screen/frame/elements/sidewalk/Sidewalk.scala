@@ -1,6 +1,6 @@
 package frogger.screen.frame.elements.sidewalk
 
-import frogger.screen.frame.elements.TexturedElement
+import frogger.screen.frame.elements.frameHelpers.TexturedElement
 
 class Sidewalk extends TexturedElement(1280, 64) {
 

@@ -1,8 +1,7 @@
 package frogger.screen.frame.elements.street
 
-import frogger.screen.frame.elements.TexturedElement
-
 import frogger.screen.frame.elements.car.Car
+import frogger.screen.frame.elements.frameHelpers.TexturedElement
 
 class Street(lanes: Int) extends TexturedElement(1280, lanes * 64) {
 

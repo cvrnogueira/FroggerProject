@@ -1,6 +1,6 @@
 package frogger.screen.frame.elements.player
 
-import frogger.screen.frame.helpers.PositionAndImageVariables
+import frogger.screen.frame.gameHelpers.PositionAndImageVariables
 
 object Player {
 
