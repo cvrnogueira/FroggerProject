@@ -31,11 +31,9 @@ object PositionAndImageVariables {
 
   var UP_MARGIN = 50
 
-  //var carPositions = mutable.MutableList[Double]()
   var carPositions = new GenericList[Car]
 
   def restartCarPositionsList(): Unit = {
-    //carPositions = mutable.MutableList[Double]()
     carPositions.restart()
   }
 

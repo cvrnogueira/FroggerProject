@@ -13,14 +13,14 @@ class Frog(var frog: Node) {
   def moveFrog(dx: Int, dy: Int): Boolean = {
     val boundsInScene = frog.localToScene(frog.getBoundsInLocal)
     if (boundsInScene.getMinY > 10) {
-      PositionCalculator.moveFrog(frog, dx, dy)
+      PositionCalculator.moveFrog(frog, dx,dy)
       return true
     }
     return false
   }
 
   def moveFrog(x: Double, y: Double): Unit = {
-    PositionCalculator.moveFrog(frog, x, y)
+    PositionCalculator.moveFrog(frog, x)(y)
   }
 
   def switchFrog(keyCode: KeyCode): Unit = {

@@ -10,7 +10,6 @@ object MusicManager {
     var musicFile = "music.mp3"
     var sound = new Media(new File(musicFile).toURI.toString)
     var mediaPlayer = new MediaPlayer(sound)
-    //mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE)
 
    var playerState = PlayerStatus.STILL_ON_GAME
 
