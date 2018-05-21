@@ -11,7 +11,7 @@ import scala.collection.mutable
 object Collisions {
 
 
-  def onUpdate(carList: java.util.ArrayList[Node], frog: Frog, stage: Stage):  PlayerStatus.Value = {
+  def onUpdate(carList: mutable.ListBuffer[Node], frog: Frog, stage: Stage):  PlayerStatus.Value = {
     carList.filter(car =>car.getTranslateX > stage.getWidth).map(car => car.setTranslateX(0))
     carList.map(car => car.setTranslateX(car.getTranslateX + Math.random() * 10 ))
     checkState(carList, frog)

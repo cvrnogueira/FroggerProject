@@ -26,7 +26,7 @@ abstract class Car extends TexturedElement(49, 24) {
 
   val subtract64 = (x:Double) => x-64;
 
-  def getPos(list: mutable.MutableList[Car]): Double = {
+  def getPos(list: mutable.ListBuffer[Car]): Double = {
     if (list.isEmpty) { 402 }
     else {
       subtract64(list.last.localToScene(list.last.getBoundsInLocal).getMinY)

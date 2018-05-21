@@ -25,6 +25,8 @@ import javafx.scene.layout.AnchorPane
 import javafx.scene.{Group, Node, Parent, Scene}
 import javafx.stage.Stage
 
+import scala.collection.mutable
+
 object Main {
   def main(args: Array[String]) {
     Application.launch(classOf[Main], args: _*)
@@ -43,23 +45,7 @@ class Main extends Application {
   var timer: AnimationTimer = null
   var frogRoad: Group = new Group()
   var frog:Frog = new Frog()
-  private var cars: util.List[Node] = new util.ArrayList[Node]
-  /*
-    override def start(primaryStage: Stage)
-    {
-      primaryStage.setTitle("Hello World!")
-      val btn = new Button
-      btn.setText("Say 'Hello World'")
-      btn.setOnAction((e: ActionEvent) => {
-        println("Hello World!")
-      })
-
-      val root = new StackPane
-      root.getChildren.add(btn)
-      primaryStage.setScene(new Scene(root, 300, 250))
-      primaryStage.show
-    }
-  */
+  var cars: mutable.ListBuffer[Node] = new mutable.ListBuffer[Node]
 
   @throws[Exception]
   override def start(primaryStage: Stage): Unit = {
@@ -69,14 +55,13 @@ class Main extends Application {
     LivesRemaingLabel.livesRemainingPanel(anchor, livesRemaining)
      frog = setPersonageImage
     frog.moveFrog(PositionAndImageVariables.W / 2, PositionAndImageVariables.H - 100)
-    cars = new util.ArrayList[Node]
-    cars.add(new DefineCarSpawns(new YellowCar).getSpawnCar)
-    cars.add(new DefineCarSpawns(new RedCar).getSpawnCar)
-    cars.add(new DefineCarSpawns(new YellowCar).getSpawnCar)
-    cars.add(new DefineCarSpawns(new RedCar).getSpawnCar)
-    cars.add(new DefineCarSpawns(new YellowCar).getSpawnCar)
-    cars.add(new DefineCarSpawns(new RedCar).getSpawnCar)
-    frogRoad = new Group(frog.getFrog, cars.get(0), cars.get(1), cars.get(2), cars.get(3), cars.get(4), cars.get(5), root, livesRemaining)
+    cars.+=(new DefineCarSpawns(new YellowCar).getSpawnCar)
+    cars.+=(new DefineCarSpawns(new RedCar).getSpawnCar)
+    cars.+=(new DefineCarSpawns(new YellowCar).getSpawnCar)
+    cars.+=(new DefineCarSpawns(new RedCar).getSpawnCar)
+    cars.+=(new DefineCarSpawns(new YellowCar).getSpawnCar)
+    cars.+=(new DefineCarSpawns(new RedCar).getSpawnCar)
+    frogRoad = new Group(frog.getFrog, cars(0), cars(1), cars(2), cars(3), cars(4), cars(5), root, livesRemaining)
     setZindexOfSprites()
     setStageAndScene(primaryStage, frogRoad)
     animationTimer()
@@ -101,7 +86,7 @@ class Main extends Application {
           alert.setOnHidden((evt: DialogEvent) => Platform.exit())
           alert.show()
         }
-        if (Collisions.onUpdate(cars.asInstanceOf[util.ArrayList[Node]], frog, stage).compareTo(PlayerStatus.LOSER) == 0) startAgain()
+        if (Collisions.onUpdate(cars, frog, stage).compareTo(PlayerStatus.LOSER) == 0) startAgain()
       }
     }
     timer.start()
@@ -109,12 +94,12 @@ class Main extends Application {
 
   private def setZindexOfSprites(): Unit = {
     frog.getFrog.toFront()
-    cars.get(0).toFront()
-    cars.get(1).toFront()
-    cars.get(2).toFront()
-    cars.get(3).toFront()
-    cars.get(4).toFront()
-    cars.get(5).toFront()
+    cars(0).toFront()
+    cars(1).toFront()
+    cars(2).toFront()
+    cars(3).toFront()
+    cars(4).toFront()
+    cars(5).toFront()
   }
 
   private def startAgain(): Unit = {
