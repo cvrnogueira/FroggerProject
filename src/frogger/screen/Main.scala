@@ -94,12 +94,7 @@ class Main extends Application {
 
   private def setZindexOfSprites(): Unit = {
     frog.getFrog.toFront()
-    cars(0).toFront()
-    cars(1).toFront()
-    cars(2).toFront()
-    cars(3).toFront()
-    cars(4).toFront()
-    cars(5).toFront()
+    cars.map(car => car.toFront())
   }
 
   private def startAgain(): Unit = {
