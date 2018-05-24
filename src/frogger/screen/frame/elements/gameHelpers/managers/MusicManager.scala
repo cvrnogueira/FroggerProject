@@ -1,8 +1,8 @@
-package frogger.screen.frame.elements.gameHelpers
+package frogger.screen.frame.elements.gameHelpers.managers
 
 import java.io.File
-import frogger.screen.frame.elements.player.PlayerStatus
 
+import frogger.screen.frame.elements.player.PlayerStatus
 import javafx.scene.media.{Media, MediaPlayer}
 
 object MusicManager {

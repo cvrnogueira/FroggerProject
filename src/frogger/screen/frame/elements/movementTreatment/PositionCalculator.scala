@@ -1,5 +1,6 @@
-package frogger.screen.frame.elements.gameHelpers
+package frogger.screen.frame.elements.movementTreatment
 
+import frogger.screen.frame.elements.gameHelpers.managers.globalManager
 import javafx.scene.Node
 import javafx.scene.input.KeyCode
 
@@ -17,7 +18,7 @@ object PositionCalculator extends PositionSwitches {
   def moveFrog(frog: Node, x: Double): Double => Unit = (y :Double)=>{
     val cx = width(frog)
     val cy = heigth(frog)
-    if (x - cx >= 0 && x + cx <= PositionAndImageVariables.W && y - cy >= 0 && y + cy <= PositionAndImageVariables.H) {
+    if (x - cx >= 0 && x + cx <= globalManager.W && y - cy >= 0 && y + cy <= globalManager.H) {
       frog.relocate(x - cx, y - cy)
     }
   }

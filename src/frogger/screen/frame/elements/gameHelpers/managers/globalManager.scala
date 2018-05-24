@@ -1,11 +1,11 @@
-package frogger.screen.frame.elements.gameHelpers
+package frogger.screen.frame.elements.gameHelpers.managers
 
 import frogger.screen.frame.elements.car.Car
 
 import scala.collection.mutable
 import scala.collection.mutable.ListBuffer
 
-object PositionAndImageVariables {
+object globalManager {
 
   val KEYBOARD_MOVEMENT_DELTA = 12
 

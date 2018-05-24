@@ -1,9 +1,7 @@
-package frogger.screen.frame.elements.gameHelpers
+package frogger.screen.frame.elements.gameHelpers.alerts
 
-import frogger.screen.Main
 import javafx.application.Platform
 import javafx.scene.control.{Alert, DialogEvent}
-import scalafx.stage.Stage
 
 object Alerts {
 

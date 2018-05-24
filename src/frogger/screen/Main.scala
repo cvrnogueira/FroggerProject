@@ -4,10 +4,13 @@ package frogger.screen
 import java.io.IOException
 
 import frogger.screen.frame.elements.UI.frameHelpers.ImageViewConstant
-import frogger.screen.frame.elements.car.{DefineCarSpawns, RedCar, YellowCar}
+import frogger.screen.frame.elements.car.{Car, DefineCarSpawns}
 import frogger.screen.frame.elements.frog.Frog
-import frogger.screen.frame.elements.gameHelpers.collision.Collisions
-import frogger.screen.frame.elements.gameHelpers.{Alerts, LivesRemaingLabel, MusicManager, PositionAndImageVariables}
+import frogger.screen.frame.elements.gameHelpers.alerts.Alerts
+import frogger.screen.frame.elements.gameHelpers.labels.LivesRemaingLabel
+import frogger.screen.frame.elements.movementTreatment.onUpdate
+import frogger.screen.frame.elements.gameHelpers.MusicManager
+import frogger.screen.frame.elements.gameHelpers.managers.{MusicManager, globalManager}
 import frogger.screen.frame.elements.player.{Player, PlayerStatus}
 import javafx.animation.AnimationTimer
 import javafx.application.Application
@@ -44,12 +47,12 @@ class Main extends Application {
 
   @throws[Exception]
   override def start(primaryStage: Stage): Unit = {
-    PositionAndImageVariables.restartCarPositionsList()
+    globalManager.restartCarPositionsList()
     MusicManager.playMusic(PlayerStatus.STILL_ON_GAME)
     root = getParentContent
     LivesRemaingLabel.livesRemainingPanel(anchor, livesRemaining)
     setPersonageImage()
-    Frog.moveFrog(PositionAndImageVariables.W / 2, PositionAndImageVariables.H - 100, frog)
+    Frog.moveFrog(globalManager.W / 2, globalManager.H - 100, frog)
     addCars()
     frogRoad = new Group(frog, cars.head, cars(1), cars(2), cars(3), cars(4), cars(5), root, livesRemaining)
     setZindexOfSprites()
@@ -58,37 +61,37 @@ class Main extends Application {
   }
 
   private def addCars(): Unit = {
-    cars.+=(new DefineCarSpawns(new YellowCar).getSpawnCar())
-    cars.+=(new DefineCarSpawns(new RedCar).getSpawnCar())
-    cars.+=(new DefineCarSpawns(new YellowCar).getSpawnCar())
-    cars.+=(new DefineCarSpawns(new RedCar).getSpawnCar())
-    cars.+=(new DefineCarSpawns(new YellowCar).getSpawnCar())
-    cars.+=(new DefineCarSpawns(new RedCar).getSpawnCar())
+    cars.+=(DefineCarSpawns.spawnCarsRed(new Car()))
+    cars.+=(DefineCarSpawns.spawnCarsYellow(new Car()))
+    cars.+=(DefineCarSpawns.spawnCarsRed(new Car()))
+    cars.+=(DefineCarSpawns.spawnCarsYellow(new Car()))
+    cars.+=(DefineCarSpawns.spawnCarsRed(new Car()))
+    cars.+=(DefineCarSpawns.spawnCarsYellow(new Car()))
   }
 
   def posYOperationDelta(op: (Double, Int) => Double): (Double) = {
-    op(frog.getTranslateY, PositionAndImageVariables.KEYBOARD_MOVEMENT_DELTA)
+    op(frog.getTranslateY, globalManager.KEYBOARD_MOVEMENT_DELTA)
   }
 
   def posXOperationDelta(op: (Double, Int) => Double): (Double) = {
-    op(frog.getTranslateX, PositionAndImageVariables.KEYBOARD_MOVEMENT_DELTA)
+    op(frog.getTranslateX, globalManager.KEYBOARD_MOVEMENT_DELTA)
   }
 
   private def animationTimer(): Unit = {
     timer = (_: Long) => {
       val dx = 0
       val dy = 0
-      if (PositionAndImageVariables.goUp) frog.setTranslateY(posYOperationDelta(_ - _))
-      if (PositionAndImageVariables.goDown) frog.setTranslateY(posYOperationDelta(_ + _))
-      if (PositionAndImageVariables.goRigth) frog.setTranslateX(posXOperationDelta(_ + _))
-      if (PositionAndImageVariables.goLeft) frog.setTranslateX(posXOperationDelta(_ - _))
+      if (globalManager.goUp) frog.setTranslateY(posYOperationDelta(_ - _))
+      if (globalManager.goDown) frog.setTranslateY(posYOperationDelta(_ + _))
+      if (globalManager.goRigth) frog.setTranslateX(posXOperationDelta(_ + _))
+      if (globalManager.goLeft) frog.setTranslateX(posXOperationDelta(_ - _))
       Frog.setLastKeyPressedToFalse()
       if (!Frog.moveFrog(dx, dy, frog)) {
         timer.stop()
         MusicManager.playMusic(PlayerStatus.WINNER)
         Alerts.winnerAlert
       }
-      if (Collisions.onUpdate(cars, frog, stage).compareTo(PlayerStatus.LOSER) == 0) startAgain()
+      if (onUpdate.onUpdate(cars, frog, stage).compareTo(PlayerStatus.LOSER) == 0) startAgain()
     }
     timer.start()
   }
@@ -101,12 +104,12 @@ class Main extends Application {
   private def startAgain(): Unit = {
     timer.stop()
     Player.lostLive()
-    if (PositionAndImageVariables.livesRemaing <= 0) {
+    if (globalManager.livesRemaing <= 0) {
       MusicManager.playMusic(PlayerStatus.LOSER)
       Alerts.loseAlert()
     }
     else try {
-      val alert = new Alert(Alert.AlertType.INFORMATION, "Você ainda tem " + PositionAndImageVariables.livesRemaing + " vidas")
+      val alert = new Alert(Alert.AlertType.INFORMATION, "Você ainda tem " + globalManager.livesRemaing + " vidas")
       alert.setTitle(null)
       alert.setHeaderText(null)
       alert.setOnHidden((evt: DialogEvent) => {
@@ -129,7 +132,7 @@ class Main extends Application {
   }
 
   private def setPersonageImage() = {
-    personageImage = new Image(PositionAndImageVariables.FROG_UP)
+    personageImage = new Image(globalManager.FROG_UP)
     ImageViewConstant.frogImg = new ImageView(personageImage)
     personage = ImageViewConstant.frogImg
     frog = personage
@@ -143,7 +146,7 @@ class Main extends Application {
   private def setStageAndScene(primaryStage: Stage, frogRoad: Group): Unit = {
     this.stage = primaryStage
     stage.setTitle("Frogger - MLP")
-    val scene = new Scene(frogRoad, PositionAndImageVariables.W, PositionAndImageVariables.H)
+    val scene = new Scene(frogRoad, globalManager.W, globalManager.H)
     stage.setScene(scene)
     stage.setResizable(false)
     setKeyEvents(scene)

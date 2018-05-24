@@ -1,11 +1,11 @@
 package frogger.screen.frame.elements.player
 
-import frogger.screen.frame.elements.gameHelpers.PositionAndImageVariables
+import frogger.screen.frame.elements.gameHelpers.managers.globalManager
 
 object Player {
 
   def lostLive() {
-    PositionAndImageVariables.livesRemaing -= 1
+    globalManager.livesRemaing -= 1
   }
 
 }
