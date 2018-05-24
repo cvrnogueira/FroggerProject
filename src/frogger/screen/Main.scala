@@ -4,21 +4,18 @@ package frogger.screen
 import java.io.IOException
 
 import frogger.screen.frame.elements.UI.frameHelpers.ImageViewConstant
-import frogger.screen.frame.elements.car.{Car, DefineCarSpawns}
-import frogger.screen.frame.elements.firstOrderFunctions.FirstOrderFunctions
+import frogger.screen.frame.elements.car.DefineCarSpawns
 import frogger.screen.frame.elements.frog.Frog
 import frogger.screen.frame.elements.gameHelpers.alerts.Alerts
 import frogger.screen.frame.elements.gameHelpers.labels.LivesRemaingLabel
-import frogger.screen.frame.elements.movementTreatment.{KeyEvents, OnUpdate}
 import frogger.screen.frame.elements.gameHelpers.managers.{MusicManager, globalManager}
+import frogger.screen.frame.elements.movementTreatment.{KeyEvents, OnUpdate}
 import frogger.screen.frame.elements.player.{Player, PlayerStatus}
 import javafx.animation.AnimationTimer
 import javafx.application.Application
-import javafx.event.EventHandler
 import javafx.fxml.FXMLLoader
-import javafx.scene.control.{Alert, DialogEvent, Label}
+import javafx.scene.control.{DialogEvent, Label}
 import javafx.scene.image.{Image, ImageView}
-import javafx.scene.input.KeyEvent
 import javafx.scene.layout.AnchorPane
 import javafx.scene.{Group, Node, Parent, Scene}
 import javafx.stage.Stage
@@ -35,8 +32,6 @@ class Main extends Application {
 
   var stage: Stage = _
   var root: Parent = _
-  var personageImage: Image = _
-  var personage: Node = _
   private val livesRemaining = new Label()
   private val anchor = new AnchorPane()
   var timer: AnimationTimer = _
@@ -50,17 +45,16 @@ class Main extends Application {
     MusicManager.playMusic(PlayerStatus.STILL_ON_GAME)
     root = getParentContent
     LivesRemaingLabel.livesRemainingPanel(anchor, livesRemaining)
-    setPersonageImage()
-    Frog.moveFrog(globalManager.W / 2, globalManager.H - 100, frog)
+    frog = Frog.initializeFrog()
     DefineCarSpawns.addCars(cars)
     frogRoad = new Group(frog, cars.head, cars(1), cars(2), cars(3), cars(4), cars(5), root, livesRemaining)
     setZindexOfSprites()
     setStageAndScene(primaryStage, frogRoad)
     animationTimer()
   }
+
   private def animationTimer(): Unit = {
     timer = (_: Long) => {
-
       KeyEvents.frogPositionOnClick(frog)
       OnUpdate.winnerCheck(frog, timer)
       if (OnUpdate.checkCollisionReturnPlayerState(cars, frog, stage).compareTo(PlayerStatus.LOSER) == 0) startAgain()
@@ -77,7 +71,7 @@ class Main extends Application {
     timer.stop()
     Player.lostLive()
     try {
-       Alerts.infoAlert().setOnHidden((evt: DialogEvent) => {
+      Alerts.infoAlert().setOnHidden((evt: DialogEvent) => {
         def event(evt: DialogEvent): Unit = {
           try
             start(stage)
@@ -93,13 +87,6 @@ class Main extends Application {
       case e: Exception =>
         e.printStackTrace()
     }
-  }
-
-  private def setPersonageImage() = {
-    personageImage = new Image(globalManager.FROG_UP)
-    ImageViewConstant.frogImg = new ImageView(personageImage)
-    personage = ImageViewConstant.frogImg
-    frog = personage
   }
 
   @throws[IOException]
