@@ -1,6 +1,8 @@
 package frogger.screen.frame.elements.movementTreatment
 
+import frogger.screen.frame.elements.firstOrderFunctions.FirstOrderFunctions
 import frogger.screen.frame.elements.gameHelpers.managers.globalManager
+import frogger.screen.frame.elements.highOrderFunctions.HighOrderFunctions
 import javafx.scene.Node
 import javafx.scene.input.KeyCode
 
@@ -8,25 +10,17 @@ object PositionCalculator extends PositionSwitches {
 
   def moveFrog(frog: Node, dx: Int,dy: Int){
     if (dx == 0 && dy == 0) return
-    val x: Double = sum(id, width(frog), frog.getLayoutX, dx)
-    val y: Double = sum(id, heigth(frog), frog.getLayoutY, dy)
+    val x: Double = HighOrderFunctions.sum(HighOrderFunctions.id, FirstOrderFunctions.width(frog), frog.getLayoutX, dx)
+    val y: Double = HighOrderFunctions.sum(HighOrderFunctions.id, FirstOrderFunctions.heigh(frog), frog.getLayoutY, dy)
     moveFrog(frog, x)(y)
   }
-  val width: Node => Double = (frog: Node) => frog.getBoundsInLocal.getWidth / 2
-  val heigth: Node => Double = (frog: Node) =>  frog.getBoundsInLocal.getHeight / 2
-
   def moveFrog(frog: Node, x: Double): Double => Unit = (y :Double)=>{
-    val cx = width(frog)
-    val cy = heigth(frog)
+    val cx = FirstOrderFunctions.width(frog)
+    val cy = FirstOrderFunctions.heigh(frog)
     if (x - cx >= 0 && x + cx <= globalManager.W && y - cy >= 0 && y + cy <= globalManager.H) {
       frog.relocate(x - cx, y - cy)
     }
   }
-//high order function
-  def id(x: Double): Double = x
-  def sum(f: Double => Double, a: Double, b: Double, c:Double): Double =
-     f(a) + sum(f, a , b,c)
-
   def switchDirection(keyCode: KeyCode) : Unit = {
     switchPosition(keyCode)
   }
