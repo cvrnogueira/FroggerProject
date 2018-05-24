@@ -15,8 +15,8 @@ abstract class Car extends TexturedElement(49, 24) {
     val end: Int = PositionAndImageVariables.UP_MARGIN
     val interval = subtractIntegerValues(start,end)
     val r1 = subtractIntegerValues(start, (new scala.util.Random).nextInt(interval))
-    val finalPosition = getPos(PositionAndImageVariables.carPositions.elements)
-    PositionAndImageVariables.carPositions.add(this)
+    val finalPosition = getPos(PositionAndImageVariables.carPositions)
+    PositionAndImageVariables.carPositions.+=(this)
     setTranslateY(finalPosition)
     finalPosition
   }

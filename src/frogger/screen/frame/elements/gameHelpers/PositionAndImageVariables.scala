@@ -3,6 +3,9 @@ package frogger.screen.frame.elements.gameHelpers
 import frogger.screen.frame.elements.car.Car
 import frogger.screen.frame.elements.generics.GenericList
 
+import scala.collection.mutable
+import scala.collection.mutable.ListBuffer
+
 object PositionAndImageVariables {
 
   val KEYBOARD_MOVEMENT_DELTA = 12
@@ -31,14 +34,14 @@ object PositionAndImageVariables {
 
   var UP_MARGIN = 50
 
-  var carPositions = new GenericList[Car]
+  var carPositions: ListBuffer[Car] =restartCarPositionsList()
 
-  def restartCarPositionsList(): Unit = {
-    carPositions.restart()
+  def restartCarPositionsList(): mutable.ListBuffer[Car] = {
+    new mutable.ListBuffer[Car]()
   }
 
   def reestartLivesRemaining(): Unit ={
-    if(livesRemaing < 0) livesRemaing = 3;
+    if(livesRemaing < 0) livesRemaing = 3
   }
 
 }

@@ -20,7 +20,7 @@ object Collisions {
   private def checkState(carList: mutable.Buffer[Node], frog: Frog): PlayerStatus.Value = {
     if(carList.isEmpty)  PlayerStatus.STILL_ON_GAME
     else{
-      if( carList.head.getBoundsInParent.intersects(frog.getFrog().getBoundsInParent)){
+      if( carList.head.getBoundsInParent.intersects(frog.getFrog.getBoundsInParent)){
         PlayerStatus.LOSER
       }
       else{
