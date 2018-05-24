@@ -5,6 +5,7 @@ import java.io.IOException
 
 import frogger.screen.frame.elements.UI.frameHelpers.ImageViewConstant
 import frogger.screen.frame.elements.car.{Car, DefineCarSpawns}
+import frogger.screen.frame.elements.firstOrderFunctions.FirstOrderFunctions
 import frogger.screen.frame.elements.frog.Frog
 import frogger.screen.frame.elements.gameHelpers.alerts.Alerts
 import frogger.screen.frame.elements.gameHelpers.labels.LivesRemaingLabel
@@ -29,7 +30,6 @@ object Main {
     Application.launch(classOf[Main], args: _*)
   }
 }
-
 
 class Main extends Application {
 
@@ -68,22 +68,15 @@ class Main extends Application {
     cars.+=(DefineCarSpawns.spawnCarsYellow(new Car()))
   }
 
-  def posYOperationDelta(op: (Double, Int) => Double): (Double) = {
-    op(frog.getTranslateY, globalManager.KEYBOARD_MOVEMENT_DELTA)
-  }
-
-  def posXOperationDelta(op: (Double, Int) => Double): (Double) = {
-    op(frog.getTranslateX, globalManager.KEYBOARD_MOVEMENT_DELTA)
-  }
 
   private def animationTimer(): Unit = {
     timer = (_: Long) => {
       val dx = 0
       val dy = 0
-      if (globalManager.goUp) frog.setTranslateY(posYOperationDelta(_ - _))
-      if (globalManager.goDown) frog.setTranslateY(posYOperationDelta(_ + _))
-      if (globalManager.goRigth) frog.setTranslateX(posXOperationDelta(_ + _))
-      if (globalManager.goLeft) frog.setTranslateX(posXOperationDelta(_ - _))
+      if (globalManager.goUp) frog.setTranslateY(FirstOrderFunctions.posYOperationDelta(frog,_ - _))
+      if (globalManager.goDown) frog.setTranslateY(FirstOrderFunctions.posYOperationDelta(frog,_ + _))
+      if (globalManager.goRigth) frog.setTranslateX(FirstOrderFunctions.posXOperationDelta(frog,_ + _))
+      if (globalManager.goLeft) frog.setTranslateX(FirstOrderFunctions.posXOperationDelta(frog,_ - _))
       Frog.setLastKeyPressedToFalse()
       if (!Frog.moveFrog(dx, dy, frog)) {
         timer.stop()
