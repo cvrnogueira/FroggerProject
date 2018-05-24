@@ -3,7 +3,6 @@ package frogger.screen
 
 import java.io.IOException
 
-import frogger.screen.frame.elements.UI.frameHelpers.ImageViewConstant
 import frogger.screen.frame.elements.car.DefineCarSpawns
 import frogger.screen.frame.elements.frog.Frog
 import frogger.screen.frame.elements.gameHelpers.alerts.Alerts
@@ -15,7 +14,6 @@ import javafx.animation.AnimationTimer
 import javafx.application.Application
 import javafx.fxml.FXMLLoader
 import javafx.scene.control.{DialogEvent, Label}
-import javafx.scene.image.{Image, ImageView}
 import javafx.scene.layout.AnchorPane
 import javafx.scene.{Group, Node, Parent, Scene}
 import javafx.stage.Stage
