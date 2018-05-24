@@ -16,15 +16,15 @@ abstract class Car extends TexturedElement(49, 24) {
     val interval = subtractIntegerValues(start,end)
     val r1 = subtractIntegerValues(start, (new scala.util.Random).nextInt(interval))
     val finalPosition = getPos(PositionAndImageVariables.carPositions.elements)
-    PositionAndImageVariables.carPositions.add(this) //+= finalPosition
+    PositionAndImageVariables.carPositions.add(this)
     setTranslateY(finalPosition)
     finalPosition
   }
 
-  val subtractIntegerValues = (x: Int, y: Int) => x - y
-  val subtractDoubleValues = (x: Double, y: Double) => (x - y).toInt
+  val subtractIntegerValues: (Int, Int) => Int = (x: Int, y: Int) => x - y
+  val subtractDoubleValues: (Double, Double) => Int = (x: Double, y: Double) => (x - y).toInt
 
-  val subtract64 = (x:Double) => x-64;
+  val subtract64 = (x:Double) => x-64
 
   def getPos(list: mutable.ListBuffer[Car]): Double = {
     if (list.isEmpty) { 402 }

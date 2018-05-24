@@ -8,9 +8,9 @@ class Frog(var frog: Node) {
   def this() {
     this(null)
   }
-  def getFrog(): Node ={
+  def getFrog: Node ={
     if(frog == null) throw new Exception("Erro no jogo, tente jogar novamente!")
-    return frog
+    frog
   }
   def moveFrog(dx: Int, dy: Int): Boolean = {
     val boundsInScene = frog.localToScene(frog.getBoundsInLocal)
@@ -18,7 +18,7 @@ class Frog(var frog: Node) {
       PositionCalculator.moveFrog(frog, dx,dy)
       return true
     }
-    return false
+    false
   }
 
   def moveFrog(x: Double, y: Double): Unit = {

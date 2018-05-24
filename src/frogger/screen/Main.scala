@@ -51,7 +51,7 @@ class Main extends Application {
     frog = setPersonageImage()
     frog.moveFrog(PositionAndImageVariables.W / 2, PositionAndImageVariables.H - 100)
     addCars()
-    frogRoad = new Group(frog.getFrog(), cars.head, cars(1), cars(2), cars(3), cars(4), cars(5), root, livesRemaining)
+    frogRoad = new Group(frog.getFrog, cars.head, cars(1), cars(2), cars(3), cars(4), cars(5), root, livesRemaining)
     setZindexOfSprites()
     setStageAndScene(primaryStage, frogRoad)
     animationTimer()
@@ -65,20 +65,20 @@ class Main extends Application {
     cars.+=(new DefineCarSpawns(new RedCar).getSpawnCar())
   }
   def posYOperationDelta( op: (Double, Int) => Double): (Double) = {
-    op(frog.getFrog().getTranslateY, PositionAndImageVariables.KEYBOARD_MOVEMENT_DELTA)
+    op(frog.getFrog.getTranslateY, PositionAndImageVariables.KEYBOARD_MOVEMENT_DELTA)
   }
   def posXOperationDelta( op: (Double, Int) => Double): (Double) = {
-    op(frog.getFrog().getTranslateX, PositionAndImageVariables.KEYBOARD_MOVEMENT_DELTA)
+    op(frog.getFrog.getTranslateX, PositionAndImageVariables.KEYBOARD_MOVEMENT_DELTA)
   }
 
   private def animationTimer(): Unit = {
     timer = (now: Long) => {
       val dx = 0
       val dy = 0
-      if (PositionAndImageVariables.goUp) frog.getFrog().setTranslateY(posYOperationDelta(_-_))
-      if (PositionAndImageVariables.goDown) frog.getFrog().setTranslateY(posYOperationDelta(_+_))
-      if (PositionAndImageVariables.goRigth) frog.getFrog().setTranslateX(posXOperationDelta(_+_))
-      if (PositionAndImageVariables.goLeft) frog.getFrog().setTranslateX(posXOperationDelta(_-_))
+      if (PositionAndImageVariables.goUp) frog.getFrog.setTranslateY(posYOperationDelta(_-_))
+      if (PositionAndImageVariables.goDown) frog.getFrog.setTranslateY(posYOperationDelta(_+_))
+      if (PositionAndImageVariables.goRigth) frog.getFrog.setTranslateX(posXOperationDelta(_+_))
+      if (PositionAndImageVariables.goLeft) frog.getFrog.setTranslateX(posXOperationDelta(_-_))
       frog.setLastKeyPressedToFalse()
       if (!frog.moveFrog(dx, dy)) {
         timer.stop()
@@ -95,7 +95,7 @@ class Main extends Application {
   }
 
   private def setZindexOfSprites(): Unit = {
-    frog.getFrog().toFront()
+    frog.getFrog.toFront()
     cars.map(car => car.toFront())
   }
 

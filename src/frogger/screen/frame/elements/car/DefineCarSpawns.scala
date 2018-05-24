@@ -17,19 +17,19 @@ class DefineCarSpawns(val car: Car) {
 
   def getSpawnCar(): Node = {
     if(car == null) throw new Exception("Erro de sistema, reinicie o jogo, por favor!")
-    return car
+    car
   }
 
   def spawnCars(yellowCar: YellowCar): YellowCar = {
     yellowCar.setTranslateY()
     yellowCar.setTextureOfCar()
-    return yellowCar
+    yellowCar
   }
 
   def spawnCars(redCar: RedCar): RedCar = {
     redCar.setTranslateY()
     redCar.setTextureOfCar()
-    return redCar
+    redCar
   }
 
 }
