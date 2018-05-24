@@ -9,7 +9,6 @@ import frogger.screen.frame.elements.frog.Frog
 import frogger.screen.frame.elements.gameHelpers.alerts.Alerts
 import frogger.screen.frame.elements.gameHelpers.labels.LivesRemaingLabel
 import frogger.screen.frame.elements.movementTreatment.onUpdate
-import frogger.screen.frame.elements.gameHelpers.MusicManager
 import frogger.screen.frame.elements.gameHelpers.managers.{MusicManager, globalManager}
 import frogger.screen.frame.elements.player.{Player, PlayerStatus}
 import javafx.animation.AnimationTimer
