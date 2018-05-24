@@ -4,15 +4,14 @@ import frogger.screen.frame.elements.gameHelpers.PositionCalculator
 import javafx.scene.Node
 import javafx.scene.input.KeyCode
 
-class Frog(var frog: Node) {
-  def this() {
-    this(null)
-  }
-  def getFrog: Node ={
+object Frog {
+
+  def setFrog(frog:Node): Node ={
     if(frog == null) throw new Exception("Erro no jogo, tente jogar novamente!")
-    frog
+     frog
   }
-  def moveFrog(dx: Int, dy: Int): Boolean = {
+
+  def moveFrog(dx: Int, dy: Int, frog: Node): Boolean = {
     val boundsInScene = frog.localToScene(frog.getBoundsInLocal)
     if (boundsInScene.getMinY > 10) {
       PositionCalculator.moveFrog(frog, dx,dy)
@@ -21,7 +20,7 @@ class Frog(var frog: Node) {
     false
   }
 
-  def moveFrog(x: Double, y: Double): Unit = {
+  def moveFrog(x: Double, y: Double, frog:Node): Unit = {
     PositionCalculator.moveFrog(frog, x)(y)
   }
 

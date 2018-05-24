@@ -1,4 +1,4 @@
-package frogger.screen.frame.elements.frameHelpers;
+package frogger.screen.frame.elements.UI.frameHelpers;
 
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;

@@ -1,6 +1,6 @@
 package frogger.screen.frame.elements.gameHelpers
 
-import frogger.screen.frame.elements.frameHelpers.ImageViewConstant
+import frogger.screen.frame.elements.UI.frameHelpers.ImageViewConstant
 import javafx.scene.image.Image
 import javafx.scene.input.KeyCode
 
@@ -15,25 +15,21 @@ trait PositionSwitches {
   }
 
   def switchPositionAndImage(keyCode: KeyCode): Unit = keyCode match {
-    case KeyCode.UP => {
+    case KeyCode.UP =>
       PositionAndImageVariables.goUp = true
       ImageViewConstant.frogImg.setImage(new Image(PositionAndImageVariables.FROG_UP))
-    }
-    case KeyCode.DOWN => {
+    case KeyCode.DOWN =>
       PositionAndImageVariables.goDown = true
       ImageViewConstant.frogImg.setImage(new Image(PositionAndImageVariables.FROG_DOWN))
-    }
     case KeyCode.LEFT
-    => {
+    =>
       PositionAndImageVariables.goLeft = true
       ImageViewConstant.frogImg.setImage(new Image(PositionAndImageVariables.FROG_LEFT))
-    }
     case KeyCode.RIGHT
-    => {
+    =>
       PositionAndImageVariables.goRigth = true
       ImageViewConstant.frogImg.setImage(new Image(PositionAndImageVariables.FROG_RIGHT))
-    }
-    case x => {}
+    case x =>
   }
 
   def setFalseToLastKeyActive(): Unit ={

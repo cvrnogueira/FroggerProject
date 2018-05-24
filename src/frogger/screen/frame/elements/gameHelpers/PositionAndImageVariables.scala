@@ -1,7 +1,6 @@
 package frogger.screen.frame.elements.gameHelpers
 
 import frogger.screen.frame.elements.car.Car
-import frogger.screen.frame.elements.generics.GenericList
 
 import scala.collection.mutable
 import scala.collection.mutable.ListBuffer

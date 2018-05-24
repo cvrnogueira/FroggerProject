@@ -1,6 +1,6 @@
 package frogger.screen.frame.elements.car
 
-import frogger.screen.frame.elements.frameHelpers.TexturedElement
+import frogger.screen.frame.elements.UI.frameHelpers.TexturedElement
 import frogger.screen.frame.elements.gameHelpers.PositionAndImageVariables
 
 import scala.collection.mutable

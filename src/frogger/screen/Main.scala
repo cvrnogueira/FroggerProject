@@ -3,14 +3,14 @@ package frogger.screen
 
 import java.io.IOException
 
+import frogger.screen.frame.elements.UI.frameHelpers.ImageViewConstant
 import frogger.screen.frame.elements.car.{DefineCarSpawns, RedCar, YellowCar}
-import frogger.screen.frame.elements.frameHelpers.ImageViewConstant
 import frogger.screen.frame.elements.frog.Frog
 import frogger.screen.frame.elements.gameHelpers.collision.Collisions
-import frogger.screen.frame.elements.gameHelpers.{LivesRemaingLabel, MusicManager, PositionAndImageVariables}
+import frogger.screen.frame.elements.gameHelpers.{Alerts, LivesRemaingLabel, MusicManager, PositionAndImageVariables}
 import frogger.screen.frame.elements.player.{Player, PlayerStatus}
 import javafx.animation.AnimationTimer
-import javafx.application.{Application, Platform}
+import javafx.application.Application
 import javafx.event.EventHandler
 import javafx.fxml.FXMLLoader
 import javafx.scene.control.{Alert, DialogEvent, Label}
@@ -39,8 +39,8 @@ class Main extends Application {
   private val anchor = new AnchorPane()
   var timer: AnimationTimer = _
   var frogRoad: Group = new Group()
-  var frog: Frog = new Frog()
   var cars: mutable.ListBuffer[Node] = new mutable.ListBuffer[Node]
+  var frog: Node = _
 
   @throws[Exception]
   override def start(primaryStage: Stage): Unit = {
@@ -48,15 +48,16 @@ class Main extends Application {
     MusicManager.playMusic(PlayerStatus.STILL_ON_GAME)
     root = getParentContent
     LivesRemaingLabel.livesRemainingPanel(anchor, livesRemaining)
-    frog = setPersonageImage()
-    frog.moveFrog(PositionAndImageVariables.W / 2, PositionAndImageVariables.H - 100)
+    setPersonageImage()
+    Frog.moveFrog(PositionAndImageVariables.W / 2, PositionAndImageVariables.H - 100, frog)
     addCars()
-    frogRoad = new Group(frog.getFrog, cars.head, cars(1), cars(2), cars(3), cars(4), cars(5), root, livesRemaining)
+    frogRoad = new Group(frog, cars.head, cars(1), cars(2), cars(3), cars(4), cars(5), root, livesRemaining)
     setZindexOfSprites()
     setStageAndScene(primaryStage, frogRoad)
     animationTimer()
   }
-  private def addCars(): Unit ={
+
+  private def addCars(): Unit = {
     cars.+=(new DefineCarSpawns(new YellowCar).getSpawnCar())
     cars.+=(new DefineCarSpawns(new RedCar).getSpawnCar())
     cars.+=(new DefineCarSpawns(new YellowCar).getSpawnCar())
@@ -64,30 +65,28 @@ class Main extends Application {
     cars.+=(new DefineCarSpawns(new YellowCar).getSpawnCar())
     cars.+=(new DefineCarSpawns(new RedCar).getSpawnCar())
   }
-  def posYOperationDelta( op: (Double, Int) => Double): (Double) = {
-    op(frog.getFrog.getTranslateY, PositionAndImageVariables.KEYBOARD_MOVEMENT_DELTA)
+
+  def posYOperationDelta(op: (Double, Int) => Double): (Double) = {
+    op(frog.getTranslateY, PositionAndImageVariables.KEYBOARD_MOVEMENT_DELTA)
   }
-  def posXOperationDelta( op: (Double, Int) => Double): (Double) = {
-    op(frog.getFrog.getTranslateX, PositionAndImageVariables.KEYBOARD_MOVEMENT_DELTA)
+
+  def posXOperationDelta(op: (Double, Int) => Double): (Double) = {
+    op(frog.getTranslateX, PositionAndImageVariables.KEYBOARD_MOVEMENT_DELTA)
   }
 
   private def animationTimer(): Unit = {
-    timer = (now: Long) => {
+    timer = (_: Long) => {
       val dx = 0
       val dy = 0
-      if (PositionAndImageVariables.goUp) frog.getFrog.setTranslateY(posYOperationDelta(_-_))
-      if (PositionAndImageVariables.goDown) frog.getFrog.setTranslateY(posYOperationDelta(_+_))
-      if (PositionAndImageVariables.goRigth) frog.getFrog.setTranslateX(posXOperationDelta(_+_))
-      if (PositionAndImageVariables.goLeft) frog.getFrog.setTranslateX(posXOperationDelta(_-_))
-      frog.setLastKeyPressedToFalse()
-      if (!frog.moveFrog(dx, dy)) {
+      if (PositionAndImageVariables.goUp) frog.setTranslateY(posYOperationDelta(_ - _))
+      if (PositionAndImageVariables.goDown) frog.setTranslateY(posYOperationDelta(_ + _))
+      if (PositionAndImageVariables.goRigth) frog.setTranslateX(posXOperationDelta(_ + _))
+      if (PositionAndImageVariables.goLeft) frog.setTranslateX(posXOperationDelta(_ - _))
+      Frog.setLastKeyPressedToFalse()
+      if (!Frog.moveFrog(dx, dy, frog)) {
         timer.stop()
         MusicManager.playMusic(PlayerStatus.WINNER)
-        val alert = new Alert(Alert.AlertType.INFORMATION, "Você ganhou o jogo!")
-        alert.setTitle(null)
-        alert.setHeaderText(null)
-        alert.setOnHidden((evt: DialogEvent) => Platform.exit())
-        alert.show()
+        Alerts.winnerAlert
       }
       if (Collisions.onUpdate(cars, frog, stage).compareTo(PlayerStatus.LOSER) == 0) startAgain()
     }
@@ -95,8 +94,8 @@ class Main extends Application {
   }
 
   private def setZindexOfSprites(): Unit = {
-    frog.getFrog.toFront()
-    cars.map(car => car.toFront())
+    frog.toFront()
+    cars.map(car => car.toFront)
   }
 
   private def startAgain(): Unit = {
@@ -104,11 +103,7 @@ class Main extends Application {
     Player.lostLive()
     if (PositionAndImageVariables.livesRemaing <= 0) {
       MusicManager.playMusic(PlayerStatus.LOSER)
-      val alert = new Alert(Alert.AlertType.INFORMATION, "Você perdeu o jogo!")
-      alert.setTitle(null)
-      alert.setHeaderText(null)
-      alert.setOnHidden((evt: DialogEvent) => Platform.exit())
-      alert.show()
+      Alerts.loseAlert()
     }
     else try {
       val alert = new Alert(Alert.AlertType.INFORMATION, "Você ainda tem " + PositionAndImageVariables.livesRemaing + " vidas")
@@ -123,6 +118,7 @@ class Main extends Application {
               e.printStackTrace()
           }
         }
+
         event(evt)
       })
       alert.show()
@@ -136,7 +132,7 @@ class Main extends Application {
     personageImage = new Image(PositionAndImageVariables.FROG_UP)
     ImageViewConstant.frogImg = new ImageView(personageImage)
     personage = ImageViewConstant.frogImg
-    new Frog(personage)
+    frog = personage
   }
 
   @throws[IOException]
@@ -157,12 +153,12 @@ class Main extends Application {
   private def setKeyEvents(scene: Scene): Unit = {
     scene.setOnKeyPressed(new EventHandler[KeyEvent]() {
       override def handle(event: KeyEvent): Unit = {
-        frog.switchFrog(event.getCode)
+        Frog.switchFrog(event.getCode)
       }
     })
     scene.setOnKeyReleased(new EventHandler[KeyEvent]() {
       override def handle(event: KeyEvent): Unit = {
-        frog.switchFrogPositionAndImage(event.getCode)
+        Frog.switchFrogPositionAndImage(event.getCode)
       }
     })
   }

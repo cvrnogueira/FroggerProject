@@ -1,9 +1,9 @@
-package frogger.screen.frame.elements.map;
+package frogger.screen.frame.elements.UI.map;
 
-import frogger.screen.frame.elements.frameHelpers.TexturedElement;
+import frogger.screen.frame.elements.UI.frameHelpers.TexturedElement;
 import frogger.screen.frame.elements.car.Car;
-import frogger.screen.frame.elements.sidewalk.Sidewalk;
-import frogger.screen.frame.elements.street.Street;
+import frogger.screen.frame.elements.UI.sidewalk.Sidewalk;
+import frogger.screen.frame.elements.UI.street.Street;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.*;
 

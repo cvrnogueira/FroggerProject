@@ -1,9 +1,9 @@
-package frogger.screen.frame
+package frogger.screen.frame.elements.UI.frameHelpers
 
 import java.net.URL
 import java.util.ResourceBundle
 
-import frogger.screen.frame.elements.map.GameMap
+import frogger.screen.frame.elements.UI.map.GameMap
 import javafx.fxml.{FXMLLoader, Initializable}
 import javafx.scene.layout.AnchorPane
 
