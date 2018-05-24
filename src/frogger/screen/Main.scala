@@ -2,12 +2,7 @@ package frogger.screen
 
 
 import java.io.IOException
-import java.util
 
-import com.sun.javafx.geom.BaseBounds
-import com.sun.javafx.geom.transform.BaseTransform
-import com.sun.javafx.jmx.{MXNodeAlgorithm, MXNodeAlgorithmContext}
-import com.sun.javafx.sg.prism.NGNode
 import frogger.screen.frame.elements.car.{DefineCarSpawns, RedCar, YellowCar}
 import frogger.screen.frame.elements.frameHelpers.ImageViewConstant
 import frogger.screen.frame.elements.frog.Frog
@@ -36,15 +31,15 @@ object Main {
 
 class Main extends Application {
 
-  var stage: Stage = null
-  var root: Parent = null
-  var personageImage: Image = null
-  var personage: Node = null
+  var stage: Stage = _
+  var root: Parent = _
+  var personageImage: Image = _
+  var personage: Node = _
   private val livesRemaining = new Label()
   private val anchor = new AnchorPane()
-  var timer: AnimationTimer = null
+  var timer: AnimationTimer = _
   var frogRoad: Group = new Group()
-  var frog:Frog = new Frog()
+  var frog: Frog = new Frog()
   var cars: mutable.ListBuffer[Node] = new mutable.ListBuffer[Node]
 
   @throws[Exception]
@@ -53,47 +48,54 @@ class Main extends Application {
     MusicManager.playMusic(PlayerStatus.STILL_ON_GAME)
     root = getParentContent
     LivesRemaingLabel.livesRemainingPanel(anchor, livesRemaining)
-     frog = setPersonageImage
+    frog = setPersonageImage()
     frog.moveFrog(PositionAndImageVariables.W / 2, PositionAndImageVariables.H - 100)
-    cars.+=(new DefineCarSpawns(new YellowCar).getSpawnCar)
-    cars.+=(new DefineCarSpawns(new RedCar).getSpawnCar)
-    cars.+=(new DefineCarSpawns(new YellowCar).getSpawnCar)
-    cars.+=(new DefineCarSpawns(new RedCar).getSpawnCar)
-    cars.+=(new DefineCarSpawns(new YellowCar).getSpawnCar)
-    cars.+=(new DefineCarSpawns(new RedCar).getSpawnCar)
-    frogRoad = new Group(frog.getFrog, cars(0), cars(1), cars(2), cars(3), cars(4), cars(5), root, livesRemaining)
+    addCars()
+    frogRoad = new Group(frog.getFrog(), cars.head, cars(1), cars(2), cars(3), cars(4), cars(5), root, livesRemaining)
     setZindexOfSprites()
     setStageAndScene(primaryStage, frogRoad)
     animationTimer()
   }
+  private def addCars(): Unit ={
+    cars.+=(new DefineCarSpawns(new YellowCar).getSpawnCar())
+    cars.+=(new DefineCarSpawns(new RedCar).getSpawnCar())
+    cars.+=(new DefineCarSpawns(new YellowCar).getSpawnCar())
+    cars.+=(new DefineCarSpawns(new RedCar).getSpawnCar())
+    cars.+=(new DefineCarSpawns(new YellowCar).getSpawnCar())
+    cars.+=(new DefineCarSpawns(new RedCar).getSpawnCar())
+  }
+  def posYOperationDelta( op: (Double, Int) => Double): (Double) = {
+    op(frog.getFrog().getTranslateY, PositionAndImageVariables.KEYBOARD_MOVEMENT_DELTA)
+  }
+  def posXOperationDelta( op: (Double, Int) => Double): (Double) = {
+    op(frog.getFrog().getTranslateX, PositionAndImageVariables.KEYBOARD_MOVEMENT_DELTA)
+  }
 
   private def animationTimer(): Unit = {
-    timer = new AnimationTimer() {
-      override def handle(now: Long): Unit = {
-        val dx = 0
-        val dy = 0
-        if (PositionAndImageVariables.goUp) frog.getFrog.setTranslateY(frog.getFrog.getTranslateY - PositionAndImageVariables.KEYBOARD_MOVEMENT_DELTA)
-        if (PositionAndImageVariables.goDown) frog.getFrog.setTranslateY(frog.getFrog.getTranslateY + PositionAndImageVariables.KEYBOARD_MOVEMENT_DELTA)
-        if (PositionAndImageVariables.goRigth) frog.getFrog.setTranslateX(frog.getFrog.getTranslateX + PositionAndImageVariables.KEYBOARD_MOVEMENT_DELTA)
-        if (PositionAndImageVariables.goLeft) frog.getFrog.setTranslateX(frog.getFrog.getTranslateX - PositionAndImageVariables.KEYBOARD_MOVEMENT_DELTA)
-        frog.setLastKeyPressedToFalse()
-        if (!frog.moveFrog(dx, dy)) {
-          timer.stop()
-          MusicManager.playMusic(PlayerStatus.WINNER)
-          val alert = new Alert(Alert.AlertType.INFORMATION, "Você ganhou o jogo!")
-          alert.setTitle(null)
-          alert.setHeaderText(null)
-          alert.setOnHidden((evt: DialogEvent) => Platform.exit())
-          alert.show()
-        }
-        if (Collisions.onUpdate(cars, frog, stage).compareTo(PlayerStatus.LOSER) == 0) startAgain()
+    timer = (now: Long) => {
+      val dx = 0
+      val dy = 0
+      if (PositionAndImageVariables.goUp) frog.getFrog().setTranslateY(posYOperationDelta(_-_))
+      if (PositionAndImageVariables.goDown) frog.getFrog().setTranslateY(posYOperationDelta(_+_))
+      if (PositionAndImageVariables.goRigth) frog.getFrog().setTranslateX(posXOperationDelta(_+_))
+      if (PositionAndImageVariables.goLeft) frog.getFrog().setTranslateX(posXOperationDelta(_-_))
+      frog.setLastKeyPressedToFalse()
+      if (!frog.moveFrog(dx, dy)) {
+        timer.stop()
+        MusicManager.playMusic(PlayerStatus.WINNER)
+        val alert = new Alert(Alert.AlertType.INFORMATION, "Você ganhou o jogo!")
+        alert.setTitle(null)
+        alert.setHeaderText(null)
+        alert.setOnHidden((evt: DialogEvent) => Platform.exit())
+        alert.show()
       }
+      if (Collisions.onUpdate(cars, frog, stage).compareTo(PlayerStatus.LOSER) == 0) startAgain()
     }
     timer.start()
   }
 
   private def setZindexOfSprites(): Unit = {
-    frog.getFrog.toFront()
+    frog.getFrog().toFront()
     cars.map(car => car.toFront())
   }
 
@@ -113,7 +115,7 @@ class Main extends Application {
       alert.setTitle(null)
       alert.setHeaderText(null)
       alert.setOnHidden((evt: DialogEvent) => {
-        def foo(evt: DialogEvent) = {
+        def event(evt: DialogEvent): Unit = {
           try
             start(stage)
           catch {
@@ -121,8 +123,7 @@ class Main extends Application {
               e.printStackTrace()
           }
         }
-
-        foo(evt)
+        event(evt)
       })
       alert.show()
     } catch {
@@ -131,7 +132,7 @@ class Main extends Application {
     }
   }
 
-  private def setPersonageImage = {
+  private def setPersonageImage() = {
     personageImage = new Image(PositionAndImageVariables.FROG_UP)
     ImageViewConstant.frogImg = new ImageView(personageImage)
     personage = ImageViewConstant.frogImg
@@ -139,7 +140,7 @@ class Main extends Application {
   }
 
   @throws[IOException]
-  private def getParentContent : Parent ={
+  private def getParentContent: Parent = {
     FXMLLoader.load(getClass.getResource("mainscreen.fxml"))
   }
 
