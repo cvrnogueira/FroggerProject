@@ -6,6 +6,9 @@
 - Professor: Lucas Melo Schnorr
 - Data em que cursamos a cadeira: 2018/1
 
+## Obs
+A ideia do projeto é fazer, utilizando uma linguagem híbrida, o jogo Frogger em duas versões: Orientada a objetos(branch master) e Funcional(branch Functional-Branch)
+
 ## Getting Started
 
 Essas instruções vão te ajudar a rodar o projeto
