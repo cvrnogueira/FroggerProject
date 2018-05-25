@@ -10,12 +10,4 @@ object FirstOrderFunctions {
   val subtract64: Double => Double = (x: Double) => x - 64
   val width: Node => Double = (frog: Node) => frog.getBoundsInLocal.getWidth / 2
   val heigh: Node => Double = (frog: Node) =>  frog.getBoundsInLocal.getHeight / 2
-
-  def posYOperationDelta(frog: Node, op: (Double, Int) => Double): (Double) = {
-    op(frog.getTranslateY, globalManager.KEYBOARD_MOVEMENT_DELTA)
-  }
-
-  def posXOperationDelta(frog: Node, op: (Double, Int) => Double): (Double) = {
-    op(frog.getTranslateX, globalManager.KEYBOARD_MOVEMENT_DELTA)
-  }
 }

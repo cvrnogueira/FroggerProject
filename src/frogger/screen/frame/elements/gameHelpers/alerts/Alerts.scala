@@ -6,21 +6,23 @@ import javafx.scene.control.{Alert, DialogEvent}
 
 object Alerts {
 
-  def loseAlert(): Unit ={
+  def loseAlert(): Unit = {
     val alert = new Alert(Alert.AlertType.INFORMATION, "Você perdeu o jogo!")
     alert.setTitle(null)
     alert.setHeaderText(null)
     alert.setOnHidden((evt: DialogEvent) => Platform.exit())
     alert.show()
   }
-  def winnerAlert(): Unit ={
+
+  def winnerAlert(): Unit = {
     val alert = new Alert(Alert.AlertType.INFORMATION, "Você ganhou o jogo!")
     alert.setTitle(null)
     alert.setHeaderText(null)
     alert.setOnHidden((evt: DialogEvent) => Platform.exit())
     alert.show()
   }
-  def infoAlert(): Alert ={
+
+  def infoAlert(): Alert = {
     val alert = new Alert(Alert.AlertType.INFORMATION, "Você ainda tem " + globalManager.livesRemaing + " vidas")
     alert.setTitle(null)
     alert.setHeaderText(null)
