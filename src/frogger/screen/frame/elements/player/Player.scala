@@ -11,6 +11,8 @@ object Player {
     if (globalManager.livesRemaing <= 0) {
       MusicManager.playMusic(PlayerStatus.LOSER)
       Alerts.loseAlert()
+      System.exit(1)
+
     }
   }
 

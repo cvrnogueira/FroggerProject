@@ -55,6 +55,7 @@ class Main extends Application {
     timer = (_: Long) => {
       KeyEvents.frogPositionOnClick(frog)
       OnUpdate.winnerCheck(frog, timer)
+
       if (OnUpdate.checkCollisionReturnPlayerState(cars, frog, stage).compareTo(PlayerStatus.LOSER) == 0) startAgain()
     }
     timer.start()

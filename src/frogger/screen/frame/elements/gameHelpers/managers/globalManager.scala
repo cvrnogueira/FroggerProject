@@ -37,10 +37,15 @@ object globalManager {
 
   var UP_MARGIN = 50
 
-  var indice: Double = 0
+  var indice: Double = -1
+
+  def getIndice
+  (): Double ={
+    indice
+  }
 
   def reestartIndice(): Unit ={
-     indice = 0;
+     indice = -1
   }
 
   def getCarPosition():  ListBuffer[Node] ={
