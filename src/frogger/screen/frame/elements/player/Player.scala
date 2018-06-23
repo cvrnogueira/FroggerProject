@@ -7,6 +7,7 @@ object Player {
 
   def lostLive() {
     globalManager.livesRemaing -= 1
+    globalManager.reestartIndice()
     if (globalManager.livesRemaing <= 0) {
       MusicManager.playMusic(PlayerStatus.LOSER)
       Alerts.loseAlert()

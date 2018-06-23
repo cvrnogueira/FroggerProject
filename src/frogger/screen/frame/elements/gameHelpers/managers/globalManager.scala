@@ -37,7 +37,16 @@ object globalManager {
 
   var UP_MARGIN = 50
 
-  var carPositions: ListBuffer[Node] =restartCarPositionsList()
+  var indice: Double = 0
+
+  def reestartIndice(): Unit ={
+     indice = 0;
+  }
+
+  def getCarPosition():  ListBuffer[Node] ={
+    carPositions
+  }
+  var carPositions: ListBuffer[Node] = restartCarPositionsList()
 
   def restartCarPositionsList(): mutable.ListBuffer[Node] = {
     new mutable.ListBuffer[Node]()
