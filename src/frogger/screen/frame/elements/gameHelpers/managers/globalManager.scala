@@ -1,6 +1,6 @@
 package frogger.screen.frame.elements.gameHelpers.managers
 
-import frogger.screen.frame.elements.car.Car
+import javafx.scene.Node
 
 import scala.collection.mutable
 import scala.collection.mutable.ListBuffer
@@ -21,6 +21,10 @@ object globalManager {
 
   val FROG_RIGHT: String = "frogger/screen/frame/elements/frog/assets/frog-right.png"
 
+  val YELLOW_CAR: String = "frogger/screen/frame/elements/car/assets/yellowCar3.png"
+
+  val RED_CAR: String = "frogger/screen/frame/elements/car/assets/redCar.png"
+
   var goUp: Boolean = false
 
   var goDown: Boolean = false
@@ -33,10 +37,24 @@ object globalManager {
 
   var UP_MARGIN = 50
 
-  var carPositions: ListBuffer[Car] =restartCarPositionsList()
+  var indice: Double = -1
 
-  def restartCarPositionsList(): mutable.ListBuffer[Car] = {
-    new mutable.ListBuffer[Car]()
+  def getIndice
+  (): Double ={
+    indice
+  }
+
+  def reestartIndice(): Unit ={
+     indice = -1
+  }
+
+  def getCarPosition():  ListBuffer[Node] ={
+    carPositions
+  }
+  var carPositions: ListBuffer[Node] = restartCarPositionsList()
+
+  def restartCarPositionsList(): mutable.ListBuffer[Node] = {
+    new mutable.ListBuffer[Node]()
   }
 
   def reestartLivesRemaining(): Unit ={
