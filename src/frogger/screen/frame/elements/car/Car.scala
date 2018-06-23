@@ -18,8 +18,8 @@ object Car {
     val interval = FirstOrderFunctions.subtractIntegerValues(start, end)
     val r1 = FirstOrderFunctions.subtractIntegerValues(start, (new scala.util.Random).nextInt(interval))
     val finalPosition = getPos(carId)
-    globalManager.getCarPosition.+=(car)
     car.setTranslateY(finalPosition)
+    globalManager.getCarPosition.+=(car)
     finalPosition
   }
 
@@ -31,7 +31,6 @@ object Car {
       case 3 => FirstOrderFunctions.subtract64(listOfYPos(3))
       case 4 => FirstOrderFunctions.subtract64(listOfYPos(4))
       case 5 => FirstOrderFunctions.subtract64(listOfYPos(5))
-
     }
 
   }
