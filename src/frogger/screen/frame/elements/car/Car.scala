@@ -32,11 +32,11 @@ class Car extends TexturedElement(49, 24) {
 
   def getPos(list: mutable.ListBuffer[Car]): Double = {
     if (list.isEmpty) {
-      print("aaaaa ")
+      print("aaaaa " + 402 + "\n")
       402
     }
     else {
-      print("bbbbb " + list.last.localToScene(list.last.getBoundsInLocal).getMinY)
+      print("bbbbb " + list.last.localToScene(list.last.getBoundsInLocal).getMinY + "\n")
       FirstOrderFunctions.subtract64(list.last.localToScene(list.last.getBoundsInLocal).getMinY)
     }
   }
