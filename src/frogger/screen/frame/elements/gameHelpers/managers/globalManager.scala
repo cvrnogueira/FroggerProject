@@ -21,7 +21,7 @@ object globalManager {
 
   val FROG_RIGHT: String = "frogger/screen/frame/elements/frog/assets/frog-right.png"
 
-  val YELLOW_CAR: String = "frogger/screen/frame/elements/car/assets/yellowCar3.png"
+  val YELLOW_CAR: String = "frogger/screen/frame/elements/car/assets/yellowCar.png"
 
   val RED_CAR: String = "frogger/screen/frame/elements/car/assets/redCar.png"
 

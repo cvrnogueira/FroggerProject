@@ -34,7 +34,7 @@ class Main extends Application {
   private val anchor = new AnchorPane()
   var timer: AnimationTimer = _
   var frogRoad: Group = new Group()
-  var cars: mutable.ListBuffer[Node] = new mutable.ListBuffer[Node]
+  var cars: mutable.ListBuffer[Node] = _
   var frog: Node = _
 
   @throws[Exception]
@@ -44,6 +44,7 @@ class Main extends Application {
     root = getParentContent
     LivesRemaingLabel.livesRemainingPanel(anchor, livesRemaining)
     frog = Frog.initializeFrog()
+    cars = new mutable.ListBuffer[Node]
     DefineCarSpawns.addCars(cars)
      frogRoad = new Group(frog, cars.head, cars(1), cars(2), cars(3), cars(4), cars(5), root, livesRemaining)
     setZindexOfSprites()
