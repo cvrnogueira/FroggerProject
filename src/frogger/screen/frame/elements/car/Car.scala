@@ -8,7 +8,7 @@ import javafx.scene.Node
 object Car {
 
 
-  val listOfYPos = List(402.0, 338.0, 274.0, 210.0, 146.0, 82.0)
+  val listOfYPos = List(470.0, 402.0, 338.0, 274.0, 210.0, 146.0)
 
   def setTranslateY(car: Node): Double = {
     globalManager.indice = globalManager.indice + 1
