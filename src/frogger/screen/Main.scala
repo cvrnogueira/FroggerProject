@@ -45,7 +45,7 @@ class Main extends Application {
     LivesRemaingLabel.livesRemainingPanel(anchor, livesRemaining)
     frog = Frog.initializeFrog()
     DefineCarSpawns.addCars(cars)
-    frogRoad = new Group(frog, cars.head, cars(1), cars(2), cars(3), cars(4), cars(5), root, livesRemaining)
+     frogRoad = new Group(frog, cars.head, cars(1), cars(2), cars(3), cars(4), cars(5), root, livesRemaining)
     setZindexOfSprites()
     setStageAndScene(primaryStage, frogRoad)
     animationTimer()

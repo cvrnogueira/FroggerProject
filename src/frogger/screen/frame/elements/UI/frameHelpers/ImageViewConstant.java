@@ -8,4 +8,8 @@ public class ImageViewConstant {
     @FXML
     public static ImageView frogImg;
 
+
+    @FXML
+    public static ImageView carImg;
+
 }
