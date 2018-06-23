@@ -13,7 +13,7 @@ object Car {
 
   var carId: Double = globalManager.indice
 
-  val listOfYPos= List(402.0, 338.0, 274.0,210.0,146.0)
+  val listOfYPos= List(402.0, 402.0, 338.0, 274.0,210.0,146.0)
 
   def setTranslateY(car: Node): Double = {
     carId= carId+1
